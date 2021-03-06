@@ -9,4 +9,4 @@ data:
     - name: ft_services
       protocol: layer2
       addresses:
-      - 192.168.64.5/32
+      - 192.168.99.101-192.168.99.101
