@@ -4,12 +4,14 @@ RUN apk update && apk upgrade
 RUN apk add nginx supervisor vim openssl openssh
 
 COPY ./nginx.conf /etc/nginx/nginx.conf
+COPY supervisor.conf etc/supervisord.conf
 
 RUN adduser -D -g 'www' www
 RUN mkdir www
 RUN chown -R www:www var/lib/nginx
 RUN chown -R www:www www
 COPY index.html www
+RUN cp -R img /www
 RUN openssl req -x509 -nodes -days 365 -subj\
 	"/C=RU/ST=Tatarstan/L=Kazan/O=21school/OU=Evolution/CN=localhost"\
 	-newkey rsa:2048 -keyout /etc/ssl/shamil.key -out /etc/ssl/shamil.crt;
