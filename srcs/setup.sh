@@ -4,6 +4,8 @@ minikube delete
 kubectl delete -f nginx/nginx.yaml
 kubectl delete -f nginx/matallb/matallb.yaml
 
+rm ~/.ssh/known_hosts
+
 minikube start --vm-driver=virtualbox
 minikube addons enable metallb
 

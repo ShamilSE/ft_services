@@ -6,6 +6,7 @@ spec:
   selector:
     app: nginx
   type: LoadBalancer
+  loadBalancerIP: 192.168.99.101
   ports:
    - protocol: TCP
      name: http
@@ -15,6 +16,10 @@ spec:
      name: https
      port: 443
      targetPort:  443
+   - protocol: TCP
+     name: ssh
+     port: 22
+     targetPort: 22
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -39,4 +44,4 @@ spec:
         ports:
         - containerPort: 80
           containerPort: 443
-
+          containerPort: 22

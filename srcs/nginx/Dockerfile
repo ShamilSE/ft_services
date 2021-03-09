@@ -6,10 +6,10 @@ RUN apk add nginx supervisor vim openssl openssh
 COPY ./nginx.conf /etc/nginx/nginx.conf
 COPY supervisor.conf etc/supervisord.conf
 
-RUN adduser -D -g 'www' www
-RUN mkdir www
+RUN adduser -D -g 'www' www && echo "www:1234" | chpasswd
+RUN mkdir /www
 RUN chown -R www:www var/lib/nginx
-RUN chown -R www:www www
+RUN chown -R www:www /www
 
 COPY page/ /www/
 
@@ -20,5 +20,5 @@ RUN openssl req -x509 -nodes -days 365 -subj\
 COPY ./run_nginx.sh /tmp/
 RUN mkdir -p /run/nginx
 RUN chmod 555 tmp/run_nginx.sh
-EXPOSE 80 443
+EXPOSE 80 443 22
 CMD ["/tmp/run_nginx.sh"]

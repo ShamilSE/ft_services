@@ -3,6 +3,8 @@
 kubectl delete -f nginx/nginx.yaml
 kubectl delete -f nginx/matallb/matallb.yaml
 
+rm ~/.ssh/known_hosts
+
 eval $(minikube docker-env)
 docker build -t nginx-image nginx
 
