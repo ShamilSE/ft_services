@@ -10,8 +10,9 @@ RUN adduser -D -g 'www' www
 RUN mkdir www
 RUN chown -R www:www var/lib/nginx
 RUN chown -R www:www www
-COPY index.html /www
-COPY happy_man.gif /www
+
+COPY page/ /www/
+
 RUN openssl req -x509 -nodes -days 365 -subj\
 	"/C=RU/ST=Tatarstan/L=Kazan/O=21school/OU=Evolution/CN=localhost"\
 	-newkey rsa:2048 -keyout /etc/ssl/shamil.key -out /etc/ssl/shamil.crt;
