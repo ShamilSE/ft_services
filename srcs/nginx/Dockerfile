@@ -13,9 +13,7 @@ RUN chown -R www:www /www
 
 COPY page/ /www/
 
-RUN openssl req -x509 -nodes -days 365 -subj\
-	"/C=RU/ST=Tatarstan/L=Kazan/O=21school/OU=Evolution/CN=localhost"\
-	-newkey rsa:2048 -keyout /etc/ssl/shamil.key -out /etc/ssl/shamil.crt;
+RUN openssl req -x509 -nodes -days 365 -subj "/C=RU/ST=Tatarstan/L=Kazan/O=21school/OU=Evolution/CN=localhost" -new -newkey rsa:2048 -keyout /etc/ssl/shamil.key -out /etc/ssl/shamil.crt;
 
 COPY ./run_nginx.sh /tmp/
 RUN mkdir -p /run/nginx
