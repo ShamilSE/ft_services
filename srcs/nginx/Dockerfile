@@ -20,5 +20,5 @@ RUN openssl req -x509 -nodes -days 365 -subj\
 COPY ./run_nginx.sh /tmp/
 RUN mkdir -p /run/nginx
 RUN chmod 555 tmp/run_nginx.sh
-EXPOSE 80 443 22
+#EXPOSE 80 443 22
 CMD ["/tmp/run_nginx.sh"]
