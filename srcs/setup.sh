@@ -1,8 +1,10 @@
 #!/bin/bash
 
+minikube stop
 minikube delete
 kubectl delete -f nginx/nginx.yaml
 kubectl delete -f nginx/matallb/matallb.yaml
+kubectl delete -f mysql/mysql.yaml
 
 rm ~/.ssh/known_hosts
 
