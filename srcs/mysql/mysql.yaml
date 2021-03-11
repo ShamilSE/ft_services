@@ -1,35 +1,65 @@
 apiVersion: v1
-kind: Service
+kind: PersistentVolumeClaim
 metadata:
-  name: mysql-service
+  name: mariadb-volume-claim
 spec:
-  type: ClusterIP
-  ports:
-    - port: 3306
-      name: mysql
-      targetPort: 3306
-  selector:
-    app: mysql
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 500Mi
 ---
-apiVersion: apps/v1
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: test-volume
+spec:
+  capacity:
+    storage: 1Gi
+  accessModes:
+  - ReadWriteOnce
+  hostPath:
+    path: "/mnt/data"
+---
+apiVersion: apps/v1 
 kind: Deployment
 metadata:
-  name: mysql-deployment
+  name: mariadb-deploy
 spec:
   selector:
     matchLabels:
-      app: mysql
-  replicas: 1
+      app: mariadb
+  replicas: 1 
   strategy:
     type: Recreate
   template:
     metadata:
       labels:
-        app: mysql
+        app: mariadb
     spec:
       containers:
-        - name: mysql-container
+        - name: mysql
           image: mysql-image
           imagePullPolicy: Never
           ports:
             - containerPort: 3306
+          volumeMounts:
+            - mountPath: "/var/lib/mysql"
+              name: mariadb-volume
+      volumes:
+        - name: mariadb-volume
+          persistentVolumeClaim:
+            claimName: mariadb-volume-claim
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: cip-mariadb
+spec:
+  type: ClusterIP
+  ports:
+    - port: 3306
+      name: mariadb
+      targetPort: 3306
+  selector:
+    app: mariadb

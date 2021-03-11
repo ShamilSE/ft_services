@@ -1,0 +1,3 @@
+resources:
+  - ./mysql/mysql-deployment.yaml
+  - ./wordpress/wordpress-deployment.yaml
