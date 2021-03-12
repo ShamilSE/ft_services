@@ -9,22 +9,10 @@ spec:
     requests:
       storage: 500Mi
 ---
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: test-volume
-spec:
-  capacity:
-    storage: 1Gi
-  accessModes:
-  - ReadWriteOnce
-  hostPath:
-    path: "/mnt/data"
----
 apiVersion: apps/v1 
 kind: Deployment
 metadata:
-  name: mariadb-deploy
+  name: mariadb-deployment
 spec:
   selector:
     matchLabels:

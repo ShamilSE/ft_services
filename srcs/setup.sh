@@ -13,6 +13,7 @@ minikube start --vm-driver=virtualbox
 minikube addons enable metallb
 
 eval $(minikube docker-env)
+echo y | docker image prune
 docker build -t nginx-image nginx
 docker build -t mysql-image mysql
 

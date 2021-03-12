@@ -2,7 +2,7 @@
 
 kubectl delete -f nginx/nginx.yaml
 kubectl delete -f nginx/matallb/matallb.yaml
-kubeclt delete -f mysql/mysql.yaml
+kubectl delete -f mysql/mysql.yaml
 
 #rm ~/.ssh/known_hosts
 
