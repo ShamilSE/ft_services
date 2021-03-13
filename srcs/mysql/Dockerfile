@@ -12,4 +12,7 @@ RUN mkdir -p /var/lib/mysql
 RUN mkdir -p /run/mysqld/mysqld.sock
 
 RUN chmod 777 /var
+
+EXPOSE 3306
+
 CMD ["./run_mysql.sh"]
