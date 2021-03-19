@@ -9,7 +9,7 @@ RUN chmod 777 run_mysql.sh
 COPY my.cnf ./etc
 
 RUN mkdir -p /var/lib/mysql
-RUN mkdir -p /run/mysqld/mysqld.sock
+RUN mkdir -p /run/mysqld/
 
 RUN chmod 777 /var
 

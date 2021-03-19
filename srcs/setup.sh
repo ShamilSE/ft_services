@@ -5,15 +5,14 @@ minikube delete
 
 kubectl delete -f nginx/nginx.yaml
 kubectl delete -f nginx/matallb/matallb.yaml
-kubectl delete -f mysql/mysqlt.yaml
+kubectl delete -f mysql/mysql.yaml
 
 #rm ~/.ssh/known_hosts
 
-minikube start --vm-driver=virtualbox
+minikube start --vm-driver=virtualbox --cpus=4 --memory=4096
 minikube addons enable metallb
 
 eval $(minikube docker-env)
-echo y | docker image prune
 docker build -t nginx-image nginx
 docker build -t mysql-image mysql
 
