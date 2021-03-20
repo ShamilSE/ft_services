@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: mariadb-volume-claim
+  name: mysql-volume-claim
 spec:
   accessModes:
     - ReadWriteOnce
@@ -9,33 +9,21 @@ spec:
     requests:
       storage: 500Mi
 ---
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: test-volume
-spec:
-  capacity:
-    storage: 1Gi
-  accessModes:
-  - ReadWriteOnce
-  hostPath:
-    path: "/mnt/data"
----
 apiVersion: apps/v1 
 kind: Deployment
 metadata:
-  name: mariadb-deploy
+  name: mysql-deployment
 spec:
   selector:
     matchLabels:
-      app: mariadb
+      app: mysql
   replicas: 1 
   strategy:
     type: Recreate
   template:
     metadata:
       labels:
-        app: mariadb
+        app: mysql
     spec:
       containers:
         - name: mysql
@@ -45,21 +33,21 @@ spec:
             - containerPort: 3306
           volumeMounts:
             - mountPath: "/var/lib/mysql"
-              name: mariadb-volume
+              name: mysql-volume
       volumes:
-        - name: mariadb-volume
+        - name: mysql-volume
           persistentVolumeClaim:
-            claimName: mariadb-volume-claim
+            claimName: mysql-volume-claim
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: cip-mariadb
+  name: cip-mysql
 spec:
   type: ClusterIP
   ports:
     - port: 3306
-      name: mariadb
+      name: mysql
       targetPort: 3306
   selector:
-    app: mariadb
+    app: mysql

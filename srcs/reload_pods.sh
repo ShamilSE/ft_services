@@ -7,7 +7,6 @@ kubectl delete -f mysql/mysql.yaml
 #rm ~/.ssh/known_hosts
 
 eval $(minikube docker-env)
-echo y | docker image prune
 docker build -t nginx-image nginx
 docker build -t mysql-image mysql
 
