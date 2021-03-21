@@ -3,7 +3,7 @@
 kubectl delete -f nginx/nginx.yaml
 kubectl delete -f nginx/matallb/matallb.yaml
 kubectl delete -f mysql/mysql.yaml
-kubeclt delete -f wordpress/wordpress.yaml
+kubectl delete -f wordpress/wordpress.yaml
 
 #rm ~/.ssh/known_hosts
 
