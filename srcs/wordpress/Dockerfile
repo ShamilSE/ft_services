@@ -10,19 +10,15 @@ RUN apk add vim supervisor sudo php7-fpm php7-common php7-session\
 
 COPY supervisor.conf etc/supervisord.conf
 
-RUN mkdir -p /usr/share/webapps/
-RUN chmod -R 777 /usr/share/webapps/
 
 RUN wget https://wordpress.org/latest.tar.gz
-RUN mv latest.tar.gz /usr/share/webapps/
-WORKDIR /usr/share/webapps/
+RUN mv latest.tar.gz /var/www/
+WORKDIR /var/www
 RUN tar -xzvf latest.tar.gz
 RUN rm latest.tar.gz
-RUN ln -s /usr/share/webapps/wordpress/ /var/www/localhost/htdocs/wordpress
 
-COPY ./wp-config.php /usr/share/webapps/wordpress
-RUN mkdir -p /run/nginx
-RUN mkdir -p /var/run/php
+COPY ./wp-config.php /var/www/wordpress
+COPY ./nginx.conf /etc/nginx/nginx.conf
 
 WORKDIR /
 COPY run_wordpress.sh .

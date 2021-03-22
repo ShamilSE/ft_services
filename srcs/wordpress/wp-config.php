@@ -4,6 +4,9 @@ define( 'DB_USER', 'admin' );
 define( 'DB_PASSWORD', 'password' );
 define( 'DB_HOST', 'mysql-service' );
 define( 'DB_CHARSET', 'utf-8' );
+define( 'WP_DEBUG', true );
+define( 'WP_DEBUG_DISPLAY', false );
+define( 'WP_DEBUG_LOG', true );
 /**
  * WordPress Database Table prefix.
  *
