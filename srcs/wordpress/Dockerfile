@@ -11,6 +11,7 @@ RUN apk add vim supervisor sudo php7-fpm php7-common php7-session\
 COPY supervisor.conf etc/supervisord.conf
 
 RUN mkdir -p /usr/share/webapps/
+RUN chmod -R 777 /usr/share/webapps/
 
 RUN wget https://wordpress.org/latest.tar.gz
 RUN mv latest.tar.gz /usr/share/webapps/
