@@ -12,12 +12,18 @@ COPY supervisor.conf etc/supervisord.conf
 
 RUN mkdir -p /usr/share/webapps/
 
-RUN cd /usr/share/webapps/
 RUN wget https://wordpress.org/latest.tar.gz
+RUN mv latest.tar.gz /usr/share/webapps/
+WORKDIR /usr/share/webapps/
 RUN tar -xzvf latest.tar.gz
 RUN rm latest.tar.gz
 RUN ln -s /usr/share/webapps/wordpress/ /var/www/localhost/htdocs/wordpress
 
+COPY ./wp-config.php /usr/share/webapps/wordpress
+RUN mkdir -p /run/nginx
+RUN mkdir -p /var/run/php
+
+WORKDIR /
 COPY run_wordpress.sh .
 RUN chmod 777 run_wordpress.sh
 
