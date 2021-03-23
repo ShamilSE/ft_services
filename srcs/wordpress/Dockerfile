@@ -1,6 +1,5 @@
 FROM alpine:3.12
 
-#RUN echo "https://dl-2.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories
 RUN apk update && apk upgrade
 RUN apk add vim supervisor sudo php7-fpm php7-common php7-session\
 	php7-iconv php7-json php7-gd php7-curl php7-xml php7-mysqli\
@@ -10,7 +9,6 @@ RUN apk add vim supervisor sudo php7-fpm php7-common php7-session\
 
 COPY supervisor.conf etc/supervisord.conf
 
-
 RUN wget https://wordpress.org/latest.tar.gz
 RUN mv latest.tar.gz /var/www/
 WORKDIR /var/www
@@ -18,7 +16,8 @@ RUN tar -xzvf latest.tar.gz
 RUN rm latest.tar.gz
 
 COPY ./wp-config.php /var/www/wordpress
-COPY ./nginx.conf /etc/nginx/nginx.conf
+RUN rm /etc/nginx/conf.d/default.conf
+COPY ./nginx.conf /etc/nginx/conf.d/default.conf
 
 WORKDIR /
 COPY run_wordpress.sh .
