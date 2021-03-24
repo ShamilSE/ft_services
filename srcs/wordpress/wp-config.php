@@ -1,9 +1,11 @@
 <?php
-define( 'DB_NAME', 'my_db' );
-define( 'DB_USER', 'admin' );
-define( 'DB_PASSWORD', 'password' );
-define( 'DB_HOST', 'mysql-service' );
+define( 'DB_NAME', 'wordpress' );
+define( 'DB_USER', 'root' );
+define( 'DB_PASSWORD', 'pass' );
+define( 'DB_HOST', 'mysql-services' );
 define( 'DB_CHARSET', 'utf-8' );
+/** The Database Collate type. Don't change this if in doubt. */
+define( 'DB_COLLATE', '' );
 define( 'WP_DEBUG', true );
 define( 'WP_DEBUG_DISPLAY', false );
 define( 'WP_DEBUG_LOG', true );

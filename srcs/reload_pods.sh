@@ -11,6 +11,7 @@ eval $(minikube docker-env)
 docker build -t nginx-image nginx
 docker build -t mysql-image mysql
 docker build -t wordpress-image wordpress
+docker images
 
 kubectl apply -f nginx/nginx.yaml
 kubectl apply -f nginx/matallb/matallb.yaml

@@ -1,18 +1,23 @@
 FROM alpine:3.12
 
-RUN apk update && apk upgrade
-RUN apk add mysql mysql-client vim supervisor openrc sudo
+RUN apk update
+RUN apk upgrade
+RUN apk add sudo vim mysql mysql-client supervisor \
+    openrc mariadb mariadb-common mariadb-client \
+    telegraf --repository http://dl-cdn.alpinelinux.org/alpine/edge/community/ --allow-untrusted --no-cache
 
-COPY run_mysql.sh .
-RUN chmod 777 run_mysql.sh
-
-COPY my.cnf ./etc
-
-RUN mkdir -p /var/lib/mysql
-RUN sudo chmod -R 755 /var/lib/mysql
 RUN mkdir -p /run/mysqld/
+COPY ./supervisor.conf /etc/supervisord.conf
+COPY ./my.cnf /etc/
+COPY ./run_mysql.sh /tmp/
+RUN sudo chmod -R 755 /var/lib/mysql/
+RUN chmod +x tmp/run_mysql.sh
 
+# Открытие волюма
+VOLUME ["/var/lib/mysql"]
 
+# Открытие портов
 EXPOSE 3306
 
-CMD ./run_mysql.sh
+# Запуск
+CMD tmp/run_mysql.sh
