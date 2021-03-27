@@ -1,17 +1,9 @@
-#!/bin/sh
-
-mariadb-install-db --user=root
-
-mysqld --user=root & sleep 5
-
-#Создание базы данных для WordPress
-mysql --user=root --execute="CREATE DATABASE wordpress;"
-
-#Импортируйте ранее созданную резервную копию базы данных на сервер
-mysql --user=root wordpress < wordpress.sql
-
-#Создайте нового пользователя "root" с паролем "pass" и предоставьте разрешения.
-mysql --user=root --execute="CREATE USER 'root'@'%' IDENTIFIED BY 'pass'; GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' WITH GRANT OPTION; USE wordpress; FLUSH PRIVILEGES;"
-
-#Запускаем
-/usr/bin/supervisord -c /etc/supervisord.conf
+rc default
+/usr/bin/telegraf &
+/etc/init.d/mariadb setup
+rc-service mariadb start
+mysql -u root mysql < create_db
+mysql -u root my_db < my_db.sql
+rc-service mariadb stop
+/usr/bin/mysqld_safe
+supervisord -c /etc/supervisord.conf
