@@ -1,23 +1,25 @@
-FROM alpine:3.12
+FROM alpine:3.12.1
 
-RUN apk update
-RUN apk upgrade
+RUN apk update && apk upgrade \
 RUN apk add sudo vim mysql mysql-client supervisor \
     openrc mariadb mariadb-common mariadb-client \
-    telegraf --repository http://dl-cdn.alpinelinux.org/alpine/edge/community/ --allow-untrusted --no-cache
+ADD https://dl.influxdata.com/telegraf/releases/telegraf-1.6.3-static_linux_amd64.tar.gz ./
 
-RUN mkdir -p /run/mysqld/
-COPY ./supervisor.conf /etc/supervisord.conf
-COPY ./my.cnf /etc/
-COPY ./run_mysql.sh /tmp/
-RUN sudo chmod -R 755 /var/lib/mysql/
-RUN chmod +x tmp/run_mysql.sh
+RUN tar -C . -xzf telegraf-1.6.3-static_linux_amd64.tar.gz && \
+        chmod +x telegraf/* && \
+        cp telegraf/telegraf /usr/bin/ && \
+        rm -rf *.tar.gz* telegraf/ 
+COPY telegraf.conf /etc/telegraf/
 
-# Открытие волюма
+COPY supervisord.conf /etc/
+COPY my.cnf /etc/
+COPY run_mysql.sh .
+COPY my_db.sql .
+COPY create_db .
+
+RUN sudo chmod -R 777 /var/lib/mysql/
 VOLUME ["/var/lib/mysql"]
 
-# Открытие портов
 EXPOSE 3306
 
-# Запуск
-CMD tmp/run_mysql.sh
+CMD sh run_mysql.sh
