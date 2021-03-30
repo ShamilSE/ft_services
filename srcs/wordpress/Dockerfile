@@ -1,29 +1,32 @@
-FROM alpine:3.12
+FROM alpine:3.12.1
 
-RUN apk update && apk upgrade
-RUN apk add vim supervisor sudo php7-fpm php7-common php7-session\
-	php7-iconv php7-json php7-gd php7-curl php7-xml php7-mysqli\
-	php7-imap php7-cgi fcgi php7-pdo php7-pdo_mysql php7-soap php7-xmlrpc\
-	nginx
+ENV TELEGRAF_VERSION 1.6.3
 
-RUN mkdir -p /run/nginx
+RUN apk update && apk upgrade \
+    && apk add wget \
+    && apk add php7 php7-fpm php7-mysqli php7-zlib php7-curl php7-mbstring php7-json php7-session \ 
+    && apk add nginx openrc supervisor \
+    && adduser -D -g 'www' www \
+    && mkdir /www && chown -R www:www /var/lib/nginx && chown -R www:www /www && mkdir -p /run/nginx \
+    && rm -rf /var/cache/apk/*
 
-COPY supervisor.conf etc/supervisord.conf
+RUN wget https://wordpress.org/latest.zip \
+    && unzip latest.zip \
+    && mv wordpress /www/ \
+    && rm latest.zip
+    
+ADD https://dl.influxdata.com/telegraf/releases/telegraf-${TELEGRAF_VERSION}-static_linux_amd64.tar.gz ./
+RUN tar -C . -xzf telegraf-${TELEGRAF_VERSION}-static_linux_amd64.tar.gz && \
+        chmod +x telegraf/* && \
+        cp telegraf/telegraf /usr/bin/ && \
+        rm -rf *.tar.gz* telegraf/ 
+        
+COPY telegraf.conf /etc/telegraf/
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+COPY supervisor.conf /etc/supervisord.conf
+COPY wp-config.php /www/wordpress/
+COPY start_wp.sh .
 
-RUN wget https://wordpress.org/latest.tar.gz
-RUN mv latest.tar.gz /var/www/
-WORKDIR /var/www
-RUN tar -xzvf latest.tar.gz
-RUN rm latest.tar.gz
+EXPOSE 5050
 
-COPY ./wp-config.php /var/www/wordpress
-COPY ./nginx.conf /etc/nginx/conf.d/default.conf
-
-WORKDIR /
-COPY run_wordpress.sh .
-RUN chmod 777 run_wordpress.sh
-RUN chmod 777 /var/www/wordpress
-
-EXPOSE 5050 
-
-CMD ./run_wordpress.sh
+ENTRYPOINT sh start_wp.sh

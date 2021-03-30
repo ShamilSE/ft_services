@@ -1,20 +1,34 @@
 <?php
+/* vim: set expandtab sw=4 ts=4 sts=4: */
 
-$cfg['blowfish_secret'] = '111111111111111111111111111111111111111111110';
+/**
+ * This is needed for cookie based authentication to encrypt password in
+ * cookie. Needs to be 32 chars long.
+ */
+$cfg['blowfish_secret'] = 'hello world'; /* YOU MUST FILL IN THIS FOR COOKIE AUTH! */
 
-$i = 1;
+/**
+ * Servers configuration
+ */
+$i = 0;
 
+/**
+ * First server
+ */
+$i++;
+/* Authentication type */
 $cfg['Servers'][$i]['auth_type'] = 'cookie';
-
-$cfg['Servers'][$i]['host'] = 'mysql-service';
+/* Server parameters */
+$cfg['Servers'][$i]['host'] = 'cip-mariadb';
+$cfg['Servers'][$i]['port'] = '3306';
+$cfg['Servers'][$i]['user'] = 'admin';
+$cfg['Servers'][$i]['password'] = 'password';
 $cfg['Servers'][$i]['compress'] = false;
 $cfg['Servers'][$i]['AllowNoPassword'] = false;
 
-$cfg['Servers'][$i]['port'] = '3306';
-$cfg['Servers'][$i]['controluser'] = 'root';
-$cfg['Servers'][$i]['controlpass'] = 'pass';
-
+/**
+ * Directories for saving/loading files from server
+ */
 $cfg['UploadDir'] = '';
 $cfg['SaveDir'] = '';
 
-$cfg['TempDir'] = '/tmp';
