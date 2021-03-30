@@ -49,14 +49,7 @@ define('DB_COLLATE', '');
  *
  * @since 2.6.0
  */
-define('AUTH_KEY',         'sgdsdgdERDTRYDGcxb4333Dgd!##yu*&^^?ZSRSTgdtdydyfFJJ466RGRNh^&(??');
-define('SECURE_AUTH_KEY',  'DSdfsdsSDGSDGDSF.aarwe13525#@$%@%T^CGHFHdhdhfh\]..sdsSWETETEYEYq');
-define('LOGGED_IN_KEY',    '1232ewfesERTETE34457%&&%Tghfgerutiowq2themIo__fghfhfgrt*77^GHFhf');
-define('NONCE_KEY',        'sfdSDGSDGSGgsgsdgst45346rgDgdfdhf564fhdhdHDF%&&%^dfdhfghfgjgjjjf');
-define('AUTH_SALT',        'fgdfdrerDT%$%#5THFHChfgfjfdfdDHDFHFFHJfffhfjERERTYYRYryrut(*&gfg');
-define('SECURE_AUTH_SALT', 'Ddgdgrer4465$$^%%RTJ>,,nNgrtryyeEETERY7&^55*IhgfDdGJKl;[Outtfgfd');
-define('LOGGED_IN_SALT',   'dfgdhdfFHFDHFswewte^%$$$dgdhfhdfhfgjfgjGJTT&^%456457esfdf46TRrhg');
-define('NONCE_SALT',       'IUy678ttjfgFGY*^&&%Df34$#2!!dfhdhfgjfkgKL;;;PIujlLll:hgjguurt876');
+
 
 /**#@-*/
 
