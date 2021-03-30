@@ -26,7 +26,6 @@ RUN tar -C . -xzf telegraf-1.6.3-static_linux_amd64.tar.gz && \
 		 
 COPY telegraf.conf /etc/telegraf/
 COPY page /www/
-COPY sshd_config /etc/ssh/
 COPY start_nginx.sh .
 
 
