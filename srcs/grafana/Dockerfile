@@ -1,6 +1,5 @@
 FROM alpine:3.12.1
 
-
 RUN apk update && apk add libc6-compat	supervisor \
 	&& rm -rf /var/cache/apk/*
 

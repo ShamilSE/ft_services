@@ -6,7 +6,7 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: my-nginx
+      app: nginx
   strategy:
     rollingUpdate:
       maxSurge: 1
@@ -15,7 +15,7 @@ spec:
   template:
     metadata:
       labels:
-        app: my-nginx
+        app: nginx
     spec:
       containers:
         - image: nginx_my
@@ -52,4 +52,4 @@ spec:
       protocol: TCP
       targetPort: 22
   selector:
-    app: my-nginx
+    app: nginx
