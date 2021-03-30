@@ -1,6 +1,6 @@
 FROM alpine:3.12.3
 
-RUN apk update && apk add vsftpd openssl libc6-compat supervisor \
+RUN apk update && apk add vsftpd openssl supervisor \
 	&&	mkdir -p /var/ftp \
 	&& rm -rf /var/cache/apk/*
 
@@ -14,7 +14,7 @@ RUN openssl req\
 	-x509\
 	-nodes\
 	-days 365\
-	-subj "/C=RU/ST=Moscow/L=Moscow/O=Ft_servicesCompany, Inc./CN=ft_services.com"\
+	-subj "/C=RU/ST=Kazan/L=Kazan/O=school21, Inc./CN=school21"\
 	-addext "subjectAltName=DNS:mismene.com"\
 	-newkey rsa:2048\
 	-keyout /etc/vsftpd/ftps.key\
