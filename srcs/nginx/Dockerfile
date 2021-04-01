@@ -1,7 +1,7 @@
-FROM alpine:3.12.1
+FROM alpine:3.12
 
 RUN apk update && apk upgrade
-RUN apk add openssl openrc openssh nginx curl libc6-compat supervisor
+RUN apk add openssl openrc openssh nginx curl supervisor
 	
 COPY ./nginx.conf /etc/nginx/nginx.conf
 COPY supervisor.conf /etc/supervisord.conf
@@ -29,11 +29,9 @@ COPY page /www/
 COPY start_nginx.sh .
 
 
-RUN openssl req \
-		-newkey rsa:2048 -nodes -keyout local_host.key \
+RUN openssl req -newkey rsa:2048 -nodes -keyout local_host.key \
 		-x509 -days 365 -out local_host.crt \
 		-subj "/C=RU/ST=Kazan/L=Kazan/O=21school/OU=21/CN=mismene" \
-	&& chmod 600 local_host.key local_host.crt
 
 EXPOSE 80 443 22
 

@@ -1,4 +1,4 @@
-FROM alpine:3.12.3
+FROM alpine:3.12
 
 RUN apk update && apk add curl supervisor influxdb libc6-compat \
 	&& rm -rf /var/cache/apk/*
