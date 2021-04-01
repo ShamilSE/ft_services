@@ -13,7 +13,6 @@ kubectl delete -f srcs/grafana.yaml
 
 minikube start --vm-driver=virtualbox --cpus=2 --disk-size="14000mb" --memory="4000mb"
 minikube addons enable metallb
-minikube addons enable metrics-server
 minikube addons enable dashboard
 
 eval $(minikube docker-env)

@@ -5,7 +5,7 @@ RUN	echo "http://dl-2.alpinelinux.org/alpine/edge/community" >> /etc/apk/reposit
 RUN apk add openssl nginx supervisor telegraf
 	
 RUN mkdir -p /run/nginx
-COPY ./nginx.conf /etc/nginx/nginx.conf
+COPY ./nginx.conf /etc/nginx/conf.d/default.conf
 COPY supervisor.conf /etc/supervisord.conf
 	
 COPY telegraf.conf /etc/telegraf/
