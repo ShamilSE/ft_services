@@ -1,14 +1,11 @@
 FROM alpine:3.12
 
-RUN apk update && apk add vsftpd openssl supervisor \
+RUN	echo "http://dl-2.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories
+RUN apk update && apk add vsftpd openssl supervisor telegraf \
 	&&	mkdir -p /var/ftp \
 	&& rm -rf /var/cache/apk/*
 
-
-RUN wget https://dl.influxdata.com/telegraf/releases/telegraf-1.17.0_linux_amd64.tar.gz \
-	&& tar -xf telegraf-1.17.0_linux_amd64.tar.gz --strip-components=2 -C / \
-	&& rm telegraf-1.17.0_linux_amd64.tar.gz
-COPY src/telegraf.conf /etc/telegraf/
+COPY ./src/telegraf.conf /etc/telegraf/
 
 RUN openssl req\
 	-x509\
