@@ -11,7 +11,7 @@ RUN wget https://dl.grafana.com/enterprise/release/grafana-enterprise-7.3.6.linu
 	&& tar -xf grafana-enterprise-7.3.6.linux-amd64.tar.gz --strip-components=1 -C / \
 	&& rm grafana-enterprise-7.3.6.linux-amd64.tar.gz 
 
-# COPY srcs/grafana.db /data/
+COPY srcs/grafana.db /data/
 COPY srcs/telegraf.conf /etc/telegraf/
 COPY srcs/supervisord.conf /etc/
 COPY srcs/start.sh /

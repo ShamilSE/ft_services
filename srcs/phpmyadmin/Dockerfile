@@ -10,7 +10,7 @@ RUN		apk add nginx openrc openssl telegraf supervisor \
     	php7-iconv php7-tokenizer php7-xmlwriter php7-session php7-mbstring
 
 COPY nginx.conf /etc/nginx/conf.d/default.conf
-COPY telegraf.conf /etc/
+COPY telegraf.conf /etc/telegraf/
 COPY supervisor.conf /etc/supervisord.conf
 
 RUN wget http://files.directadmin.com/services/all/phpMyAdmin/phpMyAdmin-5.0.2-all-languages.tar.gz
